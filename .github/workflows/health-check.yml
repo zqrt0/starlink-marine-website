@@ -1,0 +1,39 @@
+name: Health Check
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'  # Каждые 5 минут
+  workflow_dispatch:
+
+jobs:
+  health-check:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Check site availability
+      run: |
+        echo "Checking site health..."
+        response=$(curl -s -o /dev/null -w "%{http_code}" https://starlink-marine.vercel.app)
+        if [ $response -eq 200 ]; then
+          echo "✅ Site is healthy (HTTP $response)"
+        else
+          echo "❌ Site is down (HTTP $response)"
+          exit 1
+        fi
+        
+    - name: Check API endpoints
+      run: |
+        echo "Checking API endpoints..."
+        # Check contact API
+        contact_response=$(curl -s -o /dev/null -w "%{http_code}" https://starlink-marine.vercel.app/api/contact)
+        echo "Contact API: HTTP $contact_response"
+        
+        # Check newsletter API
+        newsletter_response=$(curl -s -o /dev/null -w "%{http_code}" https://starlink-marine.vercel.app/api/newsletter)
+        echo "Newsletter API: HTTP $newsletter_response"
+        
+    - name: Notify on failure
+      if: failure()
+      run: |
+        echo "🚨 Site health check failed!"
+        echo "Please check the deployment status on Vercel"

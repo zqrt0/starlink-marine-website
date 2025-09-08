@@ -1,0 +1,36 @@
+{
+  "monitoring": {
+    "uptime": {
+      "enabled": true,
+      "check_interval": 300,
+      "endpoints": [
+        "https://starlink-marine.vercel.app",
+        "https://starlink-marine.vercel.app/api/contact",
+        "https://starlink-marine.vercel.app/api/newsletter"
+      ]
+    },
+    "performance": {
+      "enabled": true,
+      "metrics": [
+        "response_time",
+        "availability",
+        "error_rate"
+      ]
+    },
+    "alerts": {
+      "email": "your-email@example.com",
+      "webhook": "https://hooks.slack.com/your-webhook-url"
+    }
+  },
+  "vercel": {
+    "regions": ["fra1", "iad1"],
+    "functions": {
+      "timeout": 10,
+      "memory": 1024
+    },
+    "caching": {
+      "static": "1y",
+      "api": "1h"
+    }
+  }
+}
