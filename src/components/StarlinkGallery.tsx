@@ -10,16 +10,91 @@ interface GalleryImage {
   alt: string
   title: string
   description: string
-  category: 'equipment' | 'installation' | 'maritime' | 'antennas'
+  category: 'equipment' | 'installation' | 'maritime' | 'antennas' | 'network'
   isDemo?: boolean
+  isReal?: boolean
 }
 
 export default function StarlinkGallery() {
   const [selectedCategory, setSelectedCategory] = useState<string>('all')
   const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null)
 
-  // Демо-изображения Starlink
+  // Реальные и демо-изображения Starlink
   const images: GalleryImage[] = [
+    // Реальные изображения
+    {
+      id: 'real-1',
+      src: '/images/starlink/real/network/global-network-1.jpg',
+      alt: 'Глобальная сеть Starlink',
+      title: 'Глобальная сеть Starlink',
+      description: 'Вид Земли с космической сетью Starlink, обеспечивающей глобальное покрытие интернетом',
+      category: 'network',
+      isReal: true
+    },
+    {
+      id: 'real-2',
+      src: '/images/starlink/real/maritime/ship-port-1.jpg',
+      alt: 'Морское судно в порту',
+      title: 'Морское судно в порту',
+      description: 'Современное морское судно с коммуникационным оборудованием в порту',
+      category: 'maritime',
+      isReal: true
+    },
+    {
+      id: 'real-3',
+      src: '/images/starlink/real/antennas/ship-antennas-1.jpg',
+      alt: 'Антенны на судне',
+      title: 'Антенны и радары на судне',
+      description: 'Комплексное коммуникационное оборудование на палубе морского судна',
+      category: 'antennas',
+      isReal: true
+    },
+    {
+      id: 'real-4',
+      src: '/images/starlink/real/equipment/starlink-boxes-1.jpg',
+      alt: 'Оборудование Starlink',
+      title: 'Оборудование Starlink',
+      description: 'Комплекты оборудования Starlink Performance Kit, готовые к установке',
+      category: 'equipment',
+      isReal: true
+    },
+    {
+      id: 'real-5',
+      src: '/images/starlink/real/installation/ship-infrastructure-1.jpg',
+      alt: 'Инфраструктура судна',
+      title: 'Портовая инфраструктура',
+      description: 'Современная портовая инфраструктура с кранами и коммуникационным оборудованием',
+      category: 'installation',
+      isReal: true
+    },
+    {
+      id: 'real-6',
+      src: '/images/starlink/real/maritime/container-ship-1.jpg',
+      alt: 'Контейнеровоз в океане',
+      title: 'Контейнеровоз в океане',
+      description: 'Большой контейнеровоз с оборудованием Starlink в открытом океане',
+      category: 'maritime',
+      isReal: true
+    },
+    {
+      id: 'real-7',
+      src: '/images/starlink/real/antennas/satellite-dish-1.jpg',
+      alt: 'Спутниковая антенна',
+      title: 'Спутниковая антенна Starlink',
+      description: 'Белая спутниковая антенна Starlink на палубе судна',
+      category: 'antennas',
+      isReal: true
+    },
+    {
+      id: 'real-8',
+      src: '/images/starlink/real/installation/memorial-plaque-1.jpg',
+      alt: 'Мемориальная доска',
+      title: 'Мемориальная доска судна',
+      description: 'Мемориальная доска закладки рыбопромыслового судна "Капитан Соколов"',
+      category: 'installation',
+      isReal: true
+    },
+    // Демо-изображения (оставляем для примера)
     {
       id: '1',
       src: '/images/starlink/antennas/starlink-antenna-ship-1.jpg',
@@ -114,6 +189,7 @@ export default function StarlinkGallery() {
 
   const categories = [
     { value: 'all', label: 'Все фото', icon: '📸' },
+    { value: 'network', label: 'Глобальная сеть', icon: '🌍' },
     { value: 'antennas', label: 'Антенны', icon: '📡' },
     { value: 'equipment', label: 'Оборудование', icon: '⚙️' },
     { value: 'installation', label: 'Установка', icon: '🔧' },
@@ -163,13 +239,23 @@ export default function StarlinkGallery() {
               className="bg-white rounded-xl shadow-lg overflow-hidden cursor-pointer hover:shadow-xl transition-shadow group"
             >
               <div className="relative h-64 bg-gray-200">
-                {/* Демо-изображение */}
-                <DemoImage
-                  title={image.title}
-                  description={image.description}
-                  category={image.category}
-                  className="w-full h-full"
-                />
+                {/* Реальное или демо-изображение */}
+                {image.isReal ? (
+                  <Image
+                    src={image.src}
+                    alt={image.alt}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  />
+                ) : (
+                  <DemoImage
+                    title={image.title}
+                    description={image.description}
+                    category={image.category}
+                    className="w-full h-full"
+                  />
+                )}
                 
                 {/* Overlay при наведении */}
                 <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center">
@@ -221,12 +307,22 @@ export default function StarlinkGallery() {
                 </button>
                 
                 <div className="h-96">
-                  <DemoImage
-                    title={selectedImage.title}
-                    description={selectedImage.description}
-                    category={selectedImage.category}
-                    className="w-full h-full"
-                  />
+                  {selectedImage.isReal ? (
+                    <Image
+                      src={selectedImage.src}
+                      alt={selectedImage.alt}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, 80vw"
+                    />
+                  ) : (
+                    <DemoImage
+                      title={selectedImage.title}
+                      description={selectedImage.description}
+                      category={selectedImage.category}
+                      className="w-full h-full"
+                    />
+                  )}
                 </div>
                 
                 <div className="p-6">
