@@ -1,11 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Оптимизация для продакшена
-  output: 'standalone',
-  
   // Кэширование для лучшей производительности
   experimental: {
-    optimizeCss: true,
     optimizePackageImports: ['@heroicons/react']
   },
   
@@ -91,7 +87,7 @@ const nextConfig = {
   
   // Настройки для Vercel
   env: {
-    CUSTOM_KEY: process.env.CUSTOM_KEY,
+    CUSTOM_KEY: process.env.CUSTOM_KEY || 'default_value',
   },
 }
 
