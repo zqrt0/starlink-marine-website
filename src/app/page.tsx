@@ -2,7 +2,7 @@ import Header from '@/components/Header'
 import Hero from '@/components/Hero'
 import Benefits from '@/components/Benefits'
 import Stats from '@/components/Stats'
-import VideoSection from '@/components/VideoSection'
+import PhotoGallerySection from '@/components/PhotoGallerySection'
 import ComparisonTable from '@/components/ComparisonTable'
 import Pricing from '@/components/Pricing'
 import Testimonials from '@/components/Testimonials'
@@ -27,7 +27,7 @@ export default function HomePage() {
       <Hero />
       <Benefits />
       <Stats />
-      <VideoSection />
+      <PhotoGallerySection />
       <ComparisonTable />
       <Pricing />
       <Testimonials />
