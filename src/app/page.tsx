@@ -1,7 +1,10 @@
 import Header from '@/components/Header'
 import Hero from '@/components/Hero'
 import Benefits from '@/components/Benefits'
+import Stats from '@/components/Stats'
 import PhotoGallerySection from '@/components/PhotoGallerySection'
+import Pricing from '@/components/Pricing'
+import Testimonials from '@/components/Testimonials'
 import InstallationProcess from '@/components/InstallationProcess'
 import CoverageMap from '@/components/CoverageMap'
 import WeatherWidget from '@/components/WeatherWidget'
@@ -22,7 +25,10 @@ export default function HomePage() {
       <Header />
       <Hero />
       <Benefits />
+      <Stats />
       <PhotoGallerySection />
+      <Pricing />
+      <Testimonials />
       <InstallationProcess />
       <CoverageMap />
       <WeatherWidget />

@@ -14,25 +14,25 @@ export default function Stats() {
 
   const stats: StatItem[] = [
     {
-      value: 500,
+      value: 0,
       label: 'Подключенных судов',
       suffix: '+',
       description: 'Успешно работают с нашим интернетом'
     },
     {
-      value: 99.9,
+      value: 0,
       label: 'Время работы',
       suffix: '%',
       description: 'Стабильность соединения'
     },
     {
-      value: 24,
+      value: 0,
       label: 'Техподдержка',
       suffix: '/7',
       description: 'Круглосуточная поддержка'
     },
     {
-      value: 100,
+      value: 0,
       label: 'Скорость',
       suffix: ' Мбит/с',
       description: 'Максимальная скорость интернета'
@@ -66,10 +66,10 @@ export default function Stats() {
       <div className="container-max">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Наши достижения
+            Наши показатели
           </h2>
           <p className="text-xl text-gray-200 max-w-3xl mx-auto">
-            Цифры, которые говорят о качестве наших услуг
+            Ключевые метрики работы Starlink для морских судов
           </p>
         </div>
 
