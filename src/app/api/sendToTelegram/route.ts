@@ -33,18 +33,11 @@ export async function POST(request: NextRequest) {
     }
 
     // Формируем сообщение для Telegram
-    const telegramMessage = `
-🚢 *Новая заявка с сайта Starlink Marine*
-
-👤 *Имя:* ${name}
-📞 *Телефон:* ${phone}
-📧 *Email:* ${email}
-💬 *Сообщение:* ${message || 'Не указано'}
-
-⏰ *Время:* ${new Date().toLocaleString('ru-RU', {
-      timeZone: 'Europe/Moscow'
-    })}
-    `.trim()
+    const telegramMessage = `📩 Новая заявка:
+👤 Имя: ${name}
+📞 Телефон: ${phone}
+📧 Email: ${email}
+📝 Сообщение: ${message || 'Не указано'}`
 
     // Отправляем сообщение в Telegram
     const telegramResponse = await fetch(
@@ -57,7 +50,6 @@ export async function POST(request: NextRequest) {
         body: JSON.stringify({
           chat_id: chatId,
           text: telegramMessage,
-          parse_mode: 'Markdown',
         }),
       }
     )
