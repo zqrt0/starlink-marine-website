@@ -6,7 +6,7 @@ declare global {
   }
 }
 
-export const YANDEX_METRIKA_COUNTER_ID = '12345678'
+export const YANDEX_METRIKA_COUNTER_ID = process.env.YANDEX_METRIKA_COUNTER_ID || '12345678'
 
 // Отправка цели в Яндекс.Метрику
 export const trackGoal = (goalName: string, params?: any) => {
