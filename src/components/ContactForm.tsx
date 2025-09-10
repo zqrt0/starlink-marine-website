@@ -2,6 +2,8 @@
 
 import { useState } from 'react'
 import { trackGoal, GOALS } from '@/lib/analytics'
+import PhoneButton from './PhoneButton'
+import TelegramButton from './TelegramButton'
 
 interface FormData {
   name: string
@@ -46,26 +48,31 @@ export default function ContactForm() {
     setSubmitStatus('idle')
 
     // Валидация на клиенте
-    if (!formData.name || !formData.phone || !formData.email || !formData.vesselType) {
+    if (!formData.name || !formData.phone || !formData.email) {
       alert('Пожалуйста, заполните все обязательные поля')
       setIsSubmitting(false)
       return
     }
 
     try {
-      console.log('Отправляем данные:', formData)
+      console.log('Отправляем данные в Telegram:', formData)
       
-      // Отправка на mock API
-      const response = await fetch('/api/contact', {
+      // Отправка в Telegram
+      const response = await fetch('/api/sendToTelegram', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          name: formData.name,
+          phone: formData.phone,
+          email: formData.email,
+          message: formData.message || `Тип судна: ${formData.vesselType || 'Не указан'}`
+        }),
       })
 
       const result = await response.json()
-      console.log('Ответ сервера:', result)
+      console.log('Ответ Telegram API:', result)
 
       if (response.ok) {
         setSubmitStatus('success')
@@ -80,10 +87,10 @@ export default function ContactForm() {
         // Отправка цели в Яндекс.Метрику
         trackGoal(GOALS.FORM_SUBMIT, {
           vessel_type: formData.vesselType,
-          form_type: 'contact'
+          form_type: 'telegram_contact'
         })
         
-        alert('Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.')
+        alert('Заявка отправлена!')
       } else {
         setSubmitStatus('error')
         alert(`Ошибка: ${result.error || 'Не удалось отправить заявку'}`)
@@ -252,6 +259,17 @@ export default function ContactForm() {
                     </div>
                   </div>
 
+                </div>
+              </div>
+
+              {/* Кнопки связи */}
+              <div className="bg-gray-50 p-6 rounded-xl">
+                <h4 className="font-semibold text-gray-900 mb-4">
+                  Свяжитесь с нами
+                </h4>
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <PhoneButton className="flex-1" />
+                  <TelegramButton className="flex-1" />
                 </div>
               </div>
 
