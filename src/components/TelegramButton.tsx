@@ -7,7 +7,7 @@ interface TelegramButtonProps {
 }
 
 export default function TelegramButton({ 
-  username = 'ВАШ_USERNAME_БОТА', 
+  username = 'starlinkmarine_bot', 
   className = '',
   children 
 }: TelegramButtonProps) {
