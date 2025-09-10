@@ -21,6 +21,13 @@ interface TelegramUpdate {
   message: TelegramMessage
 }
 
+export async function GET() {
+  return NextResponse.json({ 
+    ok: true, 
+    message: 'Telegram webhook is working' 
+  })
+}
+
 export async function POST(request: NextRequest) {
   try {
     const update: TelegramUpdate = await request.json()
